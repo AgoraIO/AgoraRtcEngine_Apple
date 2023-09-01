@@ -46,8 +46,7 @@ jobs:
         run: |
           git add Package.swift
           git commit -m "Automatically generated changes for version $VERSION"
-          git checkout -b release-$VERSION
-          git push -u origin release-$VERSION
+          git push
       - name: Install GitHub CLI
         run: brew install gh
       - name: Create GitHub Release
