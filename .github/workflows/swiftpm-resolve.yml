@@ -3,12 +3,7 @@ name: resolve
 on:
   push:
     branches:
-      - "main"
-    tags:
-      - "!*"
-  pull_request:
-    branches:
-    - "*"
+      - "release-*"
 
 jobs:
   resolve:

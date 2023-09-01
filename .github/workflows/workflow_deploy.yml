@@ -31,7 +31,7 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.11'
       - name: Install dependencies
@@ -47,7 +47,7 @@ jobs:
           git add Package.swift
           git commit -m "Automatically generated changes for version $VERSION"
           git checkout -b release-$VERSION
-          git push --set-upstream origin release-4.2.1
+          git push -u origin release-$VERSION
       - name: Install GitHub CLI
         run: brew install gh
       - name: Create GitHub Release
