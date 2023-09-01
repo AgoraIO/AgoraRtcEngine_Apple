@@ -24,8 +24,8 @@ env:
   VERSION: ${{ github.event.inputs.version }}
 
 jobs:
-  generate-docc:
-    name: Build DocC Archives
+  merge-libraries:
+    name: Merge iOS and macOS Libraries
     runs-on: macos-13
     steps:
       - name: Checkout 🛎️
@@ -49,8 +49,8 @@ jobs:
           git push
       - name: Install GitHub CLI
         run: brew install gh
+      - name: GitHub Auth Login
+        run: gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
       - name: Create GitHub Release
-        run: |
-          gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
-          gh release create $VERSION ./libs/*.zip -t $VERSION -n "Release notes for $VERSION" -p
+        run: gh release create $VERSION ./libs/*.zip -t $VERSION -n "Release notes for $VERSION" -p
  
