@@ -46,11 +46,12 @@ jobs:
         run: |
           git add Package.swift
           git commit -m "Automatically generated changes for version $VERSION"
-          git push
+          git checkout -b release-$VERSION
+          git push --set-upstream origin release-4.2.1
       - name: Install GitHub CLI
         run: brew install gh
-      - name: GitHub Auth Login
-        run: gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
       - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release create $VERSION ./libs/*.zip -t $VERSION -n "Release notes for $VERSION" -p
  
