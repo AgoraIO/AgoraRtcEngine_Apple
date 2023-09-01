@@ -146,10 +146,10 @@ def download_xcframework_zip(url: str, destination_folder: str):
         with open(zip_path, 'wb') as f:
             f.write(response.content)
         print(f"Downloaded {zip_path}")
-
         # Unzip the content
-        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-            zip_ref.extractall(destination_folder)
+        # with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        #     zip_ref.extractall(destination_folder)
+        subprocess.run(['unzip', '-a', url.split('/')[-1]], cwd=destination_folder)
         print(f"Unzipped to {zip_path[:-4]}")
         os.remove(zip_path)
     else:
@@ -210,7 +210,7 @@ def zip_and_delete(filepath):
     parent_dir = os.path.dirname(filepath)
     zip_name = f"{dir_name_only}.zip"
     
-    subprocess.run(["zip", "-r", zip_name, dir_name_only], cwd=parent_dir)
+    subprocess.run(["zip", "-r", "-y", zip_name, dir_name_only], cwd=parent_dir)
 
     # Delete the original directory
     shutil.rmtree(filepath)
