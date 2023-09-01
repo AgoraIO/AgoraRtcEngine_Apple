@@ -6,6 +6,7 @@ import shutil
 import plistlib
 import hashlib
 import sys
+import subprocess
 
 def parse_package_swift(file_path_or_url):
     products = []
@@ -205,7 +206,11 @@ def merge_xcframeworks(src1: str, src2: str, dest: str):
         plistlib.dump(info1, f)
 
 def zip_and_delete(filepath):
-    shutil.make_archive(filepath, 'zip', filepath)
+    dir_name_only = os.path.basename(filepath)
+    parent_dir = os.path.dirname(filepath)
+    zip_name = f"{dir_name_only}.zip"
+    
+    subprocess.run(["zip", "-r", zip_name, dir_name_only], cwd=parent_dir)
 
     # Delete the original directory
     shutil.rmtree(filepath)
